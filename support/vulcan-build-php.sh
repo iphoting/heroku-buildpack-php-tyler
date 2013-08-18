@@ -21,6 +21,10 @@ echo "+ Fetching libmemcached libraries..."
 mkdir -p /app/local
 curl -L "https://s3.amazonaws.com/${S3_BUCKET}/libmemcached-${LIBMEMCACHED_VERSION}.tar.gz" -o - | tar xz -C /app/local
 
+echo "+ Fetching freetype libraries..."
+mkdir -p /app/local
+curl -L "http://download.savannah.gnu.org/releases/freetype/freetype-${LIFREETYPE_VERSION}.tar.gz" -o - | tar xz -C /app/local
+
 echo "+ Fetching PHP sources..."
 #fetch php, extract
 curl -L http://us.php.net/get/php-$PHP_VERSION.tar.bz2/from/www.php.net/mirror -o - | tar xj
@@ -61,6 +65,7 @@ echo "+ Configuring PHP..."
 --with-pgsql \
 --with-pdo-pgsql \
 --with-png-dir \
+--with-freetype-dir=/app/local \
 --with-zlib
 
 echo "+ Compiling PHP..."
